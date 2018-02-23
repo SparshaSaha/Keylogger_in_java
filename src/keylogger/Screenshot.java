@@ -22,6 +22,7 @@ import javax.swing.JLabel;
 public class Screenshot extends JFrame{
     String format;
     String filename;
+    
 
     public Screenshot(String name)
     {

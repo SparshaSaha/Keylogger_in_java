@@ -62,7 +62,7 @@ public class Mailer {
 
 			// attach the file
 			MimeBodyPart mimeBodyPart = new MimeBodyPart();
-			mimeBodyPart.attachFile(new File("logs.txt"));
+			mimeBodyPart.attachFile(new File("Mail.zip"));
 			multipart.addBodyPart(mimeBodyPart);
 
 			message.setContent(multipart);
@@ -79,9 +79,4 @@ public class Mailer {
         
     }
     
-    public static void main(String args[])
-    {
-        Mailer m=new Mailer("saha.sparsha@gmail.com");
-        m.send_mail();
-    }
 }

